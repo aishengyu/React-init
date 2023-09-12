@@ -6,28 +6,28 @@ import { IncompleteTodos } from "./components/IncompleteTodos";
 import { CompleteTodos } from "./components/CompleteTodos";
 
 export const App = () => {
-  const [imcompleteTodo, setImcompleteTodo] = useState([]);
+  const [imcompleteTodos, setImcompleteTodos] = useState([]);
   const [completeTodo, setCompleteTodo] = useState([]);
   const [todoText, setTodoText] = useState("");
   const onChangeTodoText = (event) => setTodoText(event.target.value);
   const onClickAdd = () => {
     if (todoText === "") return;
-    const newTodos = [...imcompleteTodo, todoText];
-    setImcompleteTodo(newTodos);
+    const newTodos = [...imcompleteTodos, todoText];
+    setImcompleteTodos(newTodos);
     setTodoText("");
   };
   const onClickDelete = (index) => {
-    const newTodos = [...imcompleteTodo];
+    const newTodos = [...imcompleteTodos];
     newTodos.splice(index, 1);
-    setImcompleteTodo(newTodos);
+    setImcompleteTodos(newTodos);
   };
   const onClickComplete = (index) => {
-    const newImcompleteTodos = [...imcompleteTodo];
+    const newImcompleteTodos = [...imcompleteTodos];
     newImcompleteTodos.splice(index, 1);
 
-    const newCompleteTodos = [...completeTodo, imcompleteTodo[index]];
+    const newCompleteTodos = [...completeTodo, imcompleteTodos[index]];
 
-    setImcompleteTodo(newImcompleteTodos);
+    setImcompleteTodos(newImcompleteTodos);
     setCompleteTodo(newCompleteTodos);
   };
   const onClickBack = (index) => {
@@ -36,12 +36,12 @@ export const App = () => {
     const newImCompleteTodos = [...imcompleteTodo];
     newImCompleteTodos.push(completeTodo[index]);
     */
-    const newImCompleteTodos = [...imcompleteTodo, completeTodo[index]];
+    const newImCompleteTodos = [...imcompleteTodos, completeTodo[index]];
     const newCompleteTodos = [...completeTodo];
     newCompleteTodos.splice(index, 1);
 
     setCompleteTodo(newCompleteTodos);
-    setImcompleteTodo(newImCompleteTodos);
+    setImcompleteTodos(newImCompleteTodos);
   };
   return (
     <>
@@ -49,9 +49,13 @@ export const App = () => {
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
+        disabled={imcompleteTodos.length >= 5}
       />
+      {imcompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>登録できるtodo5個までだよ～消化しろ～</p>
+      )}
       <IncompleteTodos
-        todos={imcompleteTodo}
+        todos={imcompleteTodos}
         onClickComplete={onClickComplete}
         onClickDelete={onClickDelete}
       />
