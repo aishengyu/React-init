@@ -7,11 +7,21 @@ export const App = () => {
     "いいいい"
   ]);
   const [completeTodo, setCompleteTodo] = useState(["ううう"]);
+  const [todoText, setTodoText] = useState("");
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
+  const onClickAdd = () => {
+    const newTodos = [...imcompleteTodo, todoText];
+    setImcompleteTodo(newTodos);
+  };
   return (
     <>
       <div class="input-area ">
-        <input placeholder="TODOを入力" />
-        <button>追加</button>
+        <input
+          placeholder="TODOを入力"
+          value={todoText}
+          onChange={onChangeTodoText}
+        />
+        <button onClick={onClickAdd}>追加</button>
       </div>
       <div class="imcomplete-area">
         <p class="title">未完了</p>
