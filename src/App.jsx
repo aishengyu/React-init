@@ -10,8 +10,10 @@ export const App = () => {
   const [todoText, setTodoText] = useState("");
   const onChangeTodoText = (event) => setTodoText(event.target.value);
   const onClickAdd = () => {
+    if (todoText === "") return;
     const newTodos = [...imcompleteTodo, todoText];
     setImcompleteTodo(newTodos);
+    setTodoText("");
   };
   return (
     <>
